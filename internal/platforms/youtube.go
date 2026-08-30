@@ -21,6 +21,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
+	"net/http"
+	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"time"
@@ -217,15 +221,74 @@ func (p *YouTubePlatform) handleTrackURL(
 }
 
 func (p *YouTubePlatform) CanDownload(source state.PlatformName) bool {
-	return false
+	return source == PlatformYouTube
 }
 
 func (p *YouTubePlatform) Download(
-	_ context.Context,
-	_ *state.Track,
-	_ *telegram.NewMessage,
+	ctx context.Context,
+	track *state.Track,
+	statusMsg *telegram.NewMessage,
 ) (string, error) {
-	return "", errors.New("youtube platform does not support downloading")
+	if track == nil || track.ID == "" {
+		return "", errors.New("empty track id")
+	}
+
+	reqType := "audio"
+	extTarget := ".mp3"
+	if track.Video {
+		reqType = "video"
+		extTarget = ".mp4"
+	}
+
+	downloadsDir := "downloads"
+	os.MkdirAll(downloadsDir, 0755)
+
+	// 1. Check RAM Cache & Local Downloads (Instant 0.001s)
+	for _, dir := range []string{"/dev/shm/yuki_cache", downloadsDir} {
+		for _, ext := range []string{extTarget, ".m4a"} {
+			p := filepath.Join(dir, track.ID+ext)
+			if info, err := os.Stat(p); err == nil && info.Size() > 100000 {
+				gologging.DebugF("[YouTube] Serving %s (%s) from Cache (%s)", track.ID, reqType, p)
+				return p, nil
+			}
+		}
+	}
+
+	// 2. PRIMARY: Ultra-Fast Go API Engine for BOTH Audio & Video (http://music.yukiapi.site)
+	streamURL := fmt.Sprintf("http://music.yukiapi.site/stream/%s?type=%s", track.ID, reqType)
+	req, err := http.NewRequestWithContext(ctx, "GET", streamURL, nil)
+	if err == nil {
+		client := &http.Client{Timeout: 120 * time.Second}
+		resp, err := client.Do(req)
+		if err == nil && resp.StatusCode == http.StatusOK {
+			defer resp.Body.Close()
+
+			outExt := extTarget
+			if !track.Video && strings.Contains(resp.Header.Get("Content-Type"), "mp4") {
+				outExt = ".m4a"
+			}
+
+			outPath := filepath.Join(downloadsDir, track.ID+outExt)
+			tmpPath := outPath + ".tmp"
+			if f, err := os.Create(tmpPath); err == nil {
+				if _, err := io.Copy(f, resp.Body); err == nil {
+					f.Close()
+					if err := os.Rename(tmpPath, outPath); err == nil {
+						gologging.InfoF("[YouTube] Downloaded %s (%s) successfully -> %s", track.ID, reqType, outPath)
+						return outPath, nil
+					}
+				} else {
+					f.Close()
+					os.Remove(tmpPath)
+				}
+			}
+		}
+	}
+
+	// 3. FALLBACK: yt-dlp with Residential Proxies + Cookies + Deno JS
+	gologging.WarnF("[YouTube] API failed for %s (%s), falling back to local yt-dlp...", track.ID, reqType)
+	ytdlpPlat := &YtdlpPlatform{name: PlatformYtDlp}
+	return ytdlpPlat.Download(ctx, track, statusMsg)
 }
 
 func (p *YouTubePlatform) VideoSearch(
@@ -485,7 +548,7 @@ func (p *YouTubePlatform) callInnerTube(endpoint string, body, result any) error
 		return fmt.Errorf("innertube request failed: %w", err)
 	}
 
-	if resp.IsError() {
+	if resp.StatusCode() >= 400 {
 		return fmt.Errorf("innertube error: %d", resp.StatusCode())
 	}
 
@@ -633,4 +696,13 @@ func atoi(s string) int {
 		}
 	}
 	return n
+}
+
+// Exported helper functions for call.go and external modules
+func GetYouTubeMixPlaylist(_ context.Context, playlistID string) ([]*state.Track, error) {
+	return yt.fetchMixPlaylist(playlistID, config.QueueLimit)
+}
+
+func GetYouTubePlaylist(_ context.Context, playlistID string) ([]*state.Track, error) {
+	return yt.fetchPlaylist(playlistID, config.QueueLimit)
 }
