@@ -66,6 +66,8 @@ func MonitorRooms() {
 				opts := &telegram.SendOptions{
 					ReplyMarkup: markup,
 					Entities:    statusMsg.Message.Entities,
+					LinkPreview: true,
+					InvertMedia: false,
 				}
 				statusMsg.Edit(statusMsg.Text(), opts)
 			}(chatID, room)

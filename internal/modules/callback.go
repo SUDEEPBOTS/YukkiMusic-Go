@@ -224,7 +224,9 @@ func handleReplayAction(cb *tg.CallbackQuery, r *core.RoomState) error {
 	}
 
 	track := r.Track()
+	thumbTag := getThumbTag(chatID, track.Artwork)
 	msgText := F(chatID, "stream_now_playing", locales.Arg{
+		"thumb":    thumbTag,
 		"url":      track.URL,
 		"title":    utils.EscapeHTML(utils.ShortTitle(track.Title, 25)),
 		"duration": utils.FormatDuration(track.Duration),
@@ -234,9 +236,8 @@ func handleReplayAction(cb *tg.CallbackQuery, r *core.RoomState) error {
 	sendOpt := &tg.SendOptions{
 		ParseMode:   "HTML",
 		ReplyMarkup: core.GetPlayMarkup(chatID, r, false),
-	}
-	if track.Artwork != "" && shouldShowThumb(chatID) {
-		sendOpt.Media = utils.CleanURL(track.Artwork)
+		LinkPreview: true,
+		InvertMedia: false,
 	}
 
 	statusMsg, _ = utils.EOR(statusMsg, msgText, sendOpt)
@@ -300,7 +301,9 @@ func handleSkipAction(cb *tg.CallbackQuery, r *core.RoomState) error {
 	cb.Answer(F(chatID, "cb_skip_success"), opt)
 	cb.Delete()
 
+	thumbTag := getThumbTag(chatID, t.Artwork)
 	msgText := F(chatID, "stream_now_playing", locales.Arg{
+		"thumb":    thumbTag,
 		"url":      t.URL,
 		"title":    utils.EscapeHTML(utils.ShortTitle(t.Title, 25)),
 		"duration": utils.FormatDuration(t.Duration),
@@ -310,9 +313,8 @@ func handleSkipAction(cb *tg.CallbackQuery, r *core.RoomState) error {
 	sendOpt := &tg.SendOptions{
 		ParseMode:   "HTML",
 		ReplyMarkup: core.GetPlayMarkup(chatID, r, false),
-	}
-	if t.Artwork != "" && shouldShowThumb(chatID) {
-		sendOpt.Media = utils.CleanURL(t.Artwork)
+		LinkPreview: true,
+		InvertMedia: false,
 	}
 
 	statusMsg, err = utils.EOR(statusMsg, msgText, sendOpt)

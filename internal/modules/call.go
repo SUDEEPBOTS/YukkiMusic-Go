@@ -31,6 +31,7 @@ import (
 
 	"main/internal/core"
 	state "main/internal/core/models"
+	"main/internal/database"
 	"main/internal/locales"
 	"main/internal/platforms"
 	"main/internal/utils"
@@ -187,8 +188,9 @@ func streamEndHandler(
 
 	title := utils.ShortTitle(t.Title, 25)
 	safeTitle := utils.EscapeHTML(title)
-
+	thumbTag := getThumbTag(cid, t.Artwork)
 	msgText := F(cid, "stream_now_playing", locales.Arg{
+		"thumb":    thumbTag,
 		"url":      t.URL,
 		"title":    safeTitle,
 		"duration": utils.FormatDuration(t.Duration),
@@ -198,9 +200,8 @@ func streamEndHandler(
 	opt := &telegram.SendOptions{
 		ParseMode:   "HTML",
 		ReplyMarkup: core.GetPlayMarkup(cid, r, false),
-	}
-	if t.Artwork != "" && shouldShowThumb(chatID) {
-		opt.Media = utils.CleanURL(t.Artwork)
+		LinkPreview: true,
+		InvertMedia: false,
 	}
 
 	statusMsg, _ = utils.EOR(statusMsg, msgText, opt)
@@ -210,7 +211,11 @@ func streamEndHandler(
 // ── Smart Autoplay Engine (Golden-Zone Relevance + Anti-Repeat Filter) ────────
 
 func tryAutoplay(chatID int64, r *core.RoomState) *state.Track {
-	// If autoplay is enabled for room/chat
+	// If autoplay is enabled for room/chat in database
+	if !database.IsAutoplayEnabled(chatID) {
+		gologging.DebugF("[Autoplay] Autoplay is disabled for chat %d", chatID)
+		return nil
+	}
 	return pickAutoplayCandidate(chatID, r.Track())
 }
 

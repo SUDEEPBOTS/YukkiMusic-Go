@@ -9,15 +9,16 @@
 #if __GLIBC__ > 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 28)
 
 #include <resolv.h>
+#undef dn_expand
 
 int __dn_expand(
-    const unsigned char *src,
-    const unsigned char *src_end,
-    unsigned char *dst,
-    int dst_len,
-    int options
+    const unsigned char *msg,
+    const unsigned char *eomorig,
+    const unsigned char *comp_dn,
+    char *exp_dn,
+    int length
 ) {
-    int n = res_query((char *)src, C_IN, T_PTR, dst, dst_len);
+    int n = res_query((char *)msg, C_IN, T_PTR, (unsigned char *)exp_dn, length);
     if (n < 0) {
         return -1;
     }

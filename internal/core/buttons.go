@@ -49,12 +49,32 @@ func styleBtn(text, cb, colour string) tg.KeyboardButton {
 	return b
 }
 
+func styleURLBtn(text, url, colour string) tg.KeyboardButton {
+	b := tg.Button.URL(text, url)
+
+	if config.DisableColour {
+		return b
+	}
+
+	switch strings.ToLower(colour) {
+	case "red":
+		b.Danger()
+	case "blue":
+		b.Primary()
+	case "green":
+		b.Success()
+	}
+
+	return b
+}
+
 func AddMeMarkup(chatID int64) tg.ReplyMarkup {
 	return tg.NewKeyboard().
 		AddRow(
-			tg.Button.URL(
+			styleURLBtn(
 				F(chatID, "ADD_ME_BTN"),
 				"https://t.me/"+Bot.Me().Username+"?startgroup&admin=invite_users",
+				"blue",
 			),
 		).
 		Build()
@@ -109,6 +129,25 @@ func GetStopConfirmMarkup(
 	return btn.Build()
 }
 
+func styleWebAppBtn(text, url, colour string) tg.KeyboardButton {
+	b := tg.Button.URL(text, url)
+
+	if config.DisableColour {
+		return b
+	}
+
+	switch strings.ToLower(colour) {
+	case "red":
+		b.Danger()
+	case "blue":
+		b.Primary()
+	case "green":
+		b.Success()
+	}
+
+	return b
+}
+
 func GetPlayMarkup(chatID int64, r *RoomState, queued bool) tg.ReplyMarkup {
 	btn := tg.NewKeyboard()
 	prefix := fmt.Sprintf("room:%d:", r.ID)
@@ -125,9 +164,26 @@ func GetPlayMarkup(chatID int64, r *RoomState, queued bool) tg.ReplyMarkup {
 		duration,
 	)
 
+	colorQuads := [][]string{
+		{"blue", "blue", "green", "blue"},
+		{"green", "green", "blue", "green"},
+		{"red", "red", "blue", "red"},
+		{"blue", "green", "red", "green"},
+		{"green", "blue", "green", "blue"},
+		{"red", "blue", "green", "blue"},
+		{"green", "red", "blue", "red"},
+		{"blue", "red", "green", "red"},
+	}
+
+	step := 0
+	if duration > 0 {
+		step = (r.Position() / 3) % len(colorQuads)
+	}
+	colors := colorQuads[step]
+
 	if !queued {
 		btn.AddRow(
-			tg.Button.Data(progress, "progress"),
+			styleBtn(progress, "progress", colors[0]),
 		)
 	}
 	btn.AddRow(
@@ -138,13 +194,18 @@ func GetPlayMarkup(chatID int64, r *RoomState, queued bool) tg.ReplyMarkup {
 	)
 
 	btn.AddRow(
-		tg.Button.Data("↩ 15s", prefix+"seekback_15"),
-		tg.Button.Data("⟳", prefix+"replay"),
-		tg.Button.Data("15s ↪", prefix+"seek_15"),
+		styleBtn("15s -", prefix+"seekback_15", colors[1]),
+		styleBtn("⟳", prefix+"replay", colors[2]),
+		styleBtn("15s +", prefix+"seek_15", colors[3]),
 	)
 
 	btn.AddRow(
 		tg.Button.Data(F(chatID, "CLOSE_BTN"), "close"),
+	)
+
+	webAppURL := fmt.Sprintf("https://t.me/Dollbymusicbot/room?startapp=%d", chatID)
+	btn.AddRow(
+		styleWebAppBtn("✨ ᴊσɪη ꝛσσϻ ✨", webAppURL, "blue"),
 	)
 
 	return btn.Build()
@@ -161,25 +222,29 @@ func GetGroupHelpKeyboard(chatID int64) *tg.ReplyInlineMarkup {
 func GetStartMarkup(chatID int64) tg.ReplyMarkup {
 	return tg.NewKeyboard().
 		AddRow(
-			tg.Button.URL(
+			styleURLBtn(
 				F(chatID, "ADD_ME_BTN"),
 				"https://t.me/"+Bot.Me().Username+"?startgroup&admin=invite_users",
+				"blue",
 			),
 		).
 		AddRow(
-			tg.Button.Data(
+			styleBtn(
 				F(chatID, "START_HELP_BTN"),
 				"help_cb",
+				"green",
 			),
 		).
 		AddRow(
-			tg.Button.URL(
+			styleURLBtn(
 				F(chatID, "UPDATES_BTN"),
 				config.SupportChannel,
+				"blue",
 			),
-			tg.Button.URL(
+			styleURLBtn(
 				F(chatID, "SUPPORT_BTN"),
 				config.SupportChat,
+				"red",
 			),
 		).
 		Build()
@@ -188,27 +253,31 @@ func GetStartMarkup(chatID int64) tg.ReplyMarkup {
 func GetHelpKeyboard(chatID int64) *tg.ReplyInlineMarkup {
 	return tg.NewKeyboard().
 		AddRow(
-			tg.Button.Data(
+			styleBtn(
 				F(chatID, "HELP_ADMINS_BTN"),
 				"help:admins",
+				"red",
 			),
-			tg.Button.Data(
+			styleBtn(
 				F(chatID, "HELP_PUBLIC_BTN"),
 				"help:public",
+				"green",
 			),
 		).
 		AddRow(
-			tg.Button.Data(
+			styleBtn(
 				F(chatID, "HELP_OWNER_BTN"),
 				"help:owner",
+				"blue",
 			),
-			tg.Button.Data(
+			styleBtn(
 				F(chatID, "HELP_SUDOERS_BTN"),
 				"help:sudoers",
+				"blue",
 			),
 		).
 		AddRow(
-			styleBtn(F(chatID, "BACK_BTN"), "start", ""),
+			styleBtn(F(chatID, "BACK_BTN"), "start", "red"),
 		).
 		Build()
 }

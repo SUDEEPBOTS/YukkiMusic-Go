@@ -114,6 +114,8 @@ func startHTTPServer() {
 			_, _ = w.Write([]byte("ok"))
 		})
 
+		modules.RegisterWebRoutes(mux)
+
 		if config.EnablePprof {
 			gologging.Warn("pprof endpoints enabled - do not expose publicly")
 			mux.HandleFunc("/debug/pprof/", pprof.Index)

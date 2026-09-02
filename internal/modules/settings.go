@@ -333,6 +333,8 @@ func settingsCallbackHandler(cb *tg.CallbackQuery) error {
 		settings.CleanModeDurationMins = next
 	case "nothumb":
 		settings.ThumbnailsDisabled = !settings.ThumbnailsDisabled
+	case "autoplay":
+		settings.AutoplayEnabled = !settings.AutoplayEnabled
 	}
 
 	if err := database.UpdateChatSettings(settings); err != nil {
@@ -403,6 +405,13 @@ func buildSettingsMarkup(chatID int64, s *database.ChatSettings) *tg.ReplyInline
 	kb.AddRow(
 		tg.Button.Data(F(chatID, "settings_btn_nothumb"), "info:nothumb"),
 		tg.Button.Data(F(chatID, thumbStatus), "set:nothumb"),
+	)
+
+	// Autoplay Mode
+	autoplayStatus := utils.IfElse(s.AutoplayEnabled, "enabled", "disabled")
+	kb.AddRow(
+		tg.Button.Data("📻 Autoplay", "info:autoplay"),
+		tg.Button.Data(F(chatID, autoplayStatus), "set:autoplay"),
 	)
 
 	// Language

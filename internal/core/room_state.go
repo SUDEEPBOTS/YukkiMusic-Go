@@ -115,6 +115,23 @@ func DeleteRoom(chatID int64) bool {
 	return true
 }
 
+// GetAnyActiveRoom returns the first active room available.
+func GetAnyActiveRoom() (*RoomState, int64) {
+	roomsMu.RLock()
+	defer roomsMu.RUnlock()
+	for id, r := range rooms {
+		if r != nil && !r.destroyed.Load() && r.IsActiveChat() {
+			return r, id
+		}
+	}
+	for id, r := range rooms {
+		if r != nil && !r.destroyed.Load() {
+			return r, id
+		}
+	}
+	return nil, 0
+}
+
 // GetRoom retrieves an existing room or creates a new one if requested.
 func GetRoom(chatID int64, ass *Assistant, create bool) (*RoomState, bool) {
 	roomsMu.RLock()

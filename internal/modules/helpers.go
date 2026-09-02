@@ -83,6 +83,13 @@ func shouldShowThumb(chatID int64) bool {
 	return !noThumb
 }
 
+func getThumbTag(chatID int64, artwork string) string {
+	if artwork != "" && shouldShowThumb(chatID) {
+		return fmt.Sprintf("<a href=\"%s\">🎵</a>", utils.CleanURL(artwork))
+	}
+	return "🎵"
+}
+
 func F(chatID int64, key string, values ...locales.Arg) string {
 	lang, err := database.Language(chatID)
 	if err != nil {

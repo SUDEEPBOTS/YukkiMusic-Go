@@ -91,7 +91,11 @@ func startHandler(m *tg.NewMessage) error {
 }
 
 func sendStartResponse(m *tg.NewMessage, caption string) error {
-	sendOpt := &tg.SendOptions{ReplyMarkup: core.GetStartMarkup(m.ChannelID())}
+	sendOpt := &tg.SendOptions{
+		ReplyMarkup: core.GetStartMarkup(m.ChannelID()),
+		LinkPreview: true,
+		InvertMedia: false,
+	}
 	if effectID := config.GetRandomEffectID(); effectID != 0 {
 		sendOpt.Effect = effectID
 	}
@@ -133,6 +137,8 @@ func startCB(cb *tg.CallbackQuery) error {
 
 	sendOpt := &tg.SendOptions{
 		ReplyMarkup: core.GetStartMarkup(cb.ChannelID()),
+		LinkPreview: true,
+		InvertMedia: false,
 	}
 
 	cb.Edit(caption, sendOpt)

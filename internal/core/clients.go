@@ -135,7 +135,7 @@ func initAssistants() error {
 		if m != nil {
 			_, _ = m.Delete()
 		}
-		assistant.Client.JoinChannel("TheTeamVivek")
+		assistant.Client.JoinChannel("HellfireDevs")
 
 		if assistant.Self.Username != "" {
 			gologging.InfoF(

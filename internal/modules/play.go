@@ -591,12 +591,14 @@ func buildNowPlayingReply(
 	opt := &tg.SendOptions{
 		ParseMode:   "HTML",
 		ReplyMarkup: core.GetPlayMarkup(chatID, r, false),
-	}
-	if track.Artwork != "" && shouldShowThumb(chatID) {
-		opt.Media = utils.CleanURL(track.Artwork)
+		LinkPreview: true,
+		InvertMedia: false,
 	}
 
+	thumbTag := getThumbTag(chatID, track.Artwork)
+
 	msg := F(chatID, "stream_now_playing", locales.Arg{
+		"thumb":    thumbTag,
 		"url":      track.URL,
 		"title":    title,
 		"duration": utils.FormatDuration(track.Duration),
@@ -615,12 +617,14 @@ func buildSingleQueueReply(
 	opt := &tg.SendOptions{
 		ParseMode:   "HTML",
 		ReplyMarkup: core.GetPlayMarkup(chatID, r, true),
-	}
-	if track.Artwork != "" && shouldShowThumb(chatID) {
-		opt.Media = utils.CleanURL(track.Artwork)
+		LinkPreview: true,
+		InvertMedia: false,
 	}
 
+	thumbTag := getThumbTag(chatID, track.Artwork)
+
 	msg := F(chatID, "play_added_to_queue_single", locales.Arg{
+		"thumb":    thumbTag,
 		"index":    len(r.Queue()),
 		"url":      track.URL,
 		"title":    title,

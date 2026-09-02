@@ -490,6 +490,11 @@ var handlers = []MsgHandlerDef{
 		Handler: privacyHandler,
 		Filters: []telegram.Filter{ignoreChannelFilter},
 	},
+	{
+		Pattern: "(autoplay|aplay)",
+		Handler: autoplayHandler,
+		Filters: []telegram.Filter{superGroupFilter, authFilter},
+	},
 }
 
 var cbHandlers = []CbHandlerDef{
@@ -507,6 +512,7 @@ var cbHandlers = []CbHandlerDef{
 	{Pattern: `^room:-?\d+:\w+$`, Handler: roomHandle},
 	{Pattern: "progress", Handler: emptyCBHandler},
 	{Pattern: "^(set|info):", Handler: settingsCallbackHandler},
+	{Pattern: "^autoplay:", Handler: autoplayCallbackHandler},
 }
 
 func Init(bot *telegram.Client, assistants *core.AssistantManager) {

@@ -181,8 +181,14 @@ func processSearchQuery(query string, video bool) ([]*state.Track, error) {
 		return []*state.Track{tracks[0]}, nil
 	}
 
-	gologging.Debug("YouTube search returned 0 results for: " + query)
 	return nil, nil
+}
+
+func SearchTracks(query string, video bool) ([]*state.Track, error) {
+	if p := findPlatform(query); p != nil && p.Name() != PlatformYouTube {
+		return p.GetTracks(query, video)
+	}
+	return yt.VideoSearch(query)
 }
 
 func processReplyChain(m *telegram.NewMessage) ([]*state.Track, error) {

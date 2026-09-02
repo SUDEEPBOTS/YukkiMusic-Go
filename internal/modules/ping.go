@@ -96,10 +96,10 @@ func pingHandler(m *tg.NewMessage) error {
 	diskUsage := "N/A"
 
 	opt := &tg.SendOptions{
+		ParseMode:   "HTML",
 		ReplyMarkup: core.SuppMarkup(m.ChannelID()),
-	}
-	if config.PingImage != "" {
-		opt.Media = config.PingImage
+		LinkPreview: true,
+		InvertMedia: false,
 	}
 
 	v, err := mem.VirtualMemory()

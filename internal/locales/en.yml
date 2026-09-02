@@ -1,26 +1,26 @@
 name: "🇺🇸 English"
 
 # buttons
-CONFIRM_RESUME_BTN: "▶️ Resume"
-CONFIRM_UNMUTE_BTN: "🔊 Unmute"
-CONFIRM_STOP_BTN: "⏹️ Stop"
-ADD_ME_BTN: "⚡ Add Me to Your group"
-BROADCAST_CANCEL_BTN: "🚫 Cancel Broadcast"
-CLOSE_BTN: "Close"
-DOWNLOAD_CANCEL_BTN: "🚦 Cancel Downloading"
-GC_HELP_BTN: "📒 Commands"
+CONFIRM_RESUME_BTN: "▶️ ꝛєsᴜᴍє"
+CONFIRM_UNMUTE_BTN: "🔊 ᴜηᴍᴜᴛє"
+CONFIRM_STOP_BTN: "⏹️ sᴛσᴘ"
+ADD_ME_BTN: "⚡ ᴧᴅᴅ ᴍє ᴛσ ʏσυꝛ ɢꝛσυᴘ"
+BROADCAST_CANCEL_BTN: "🚫 ᴄᴧηᴄєʟ ʙꝛσᴧᴅᴄᴧsᴛ"
+CLOSE_BTN: "🗑 ᴄʟσsє"
+DOWNLOAD_CANCEL_BTN: "🚦 ᴄᴧηᴄєʟ ᴅσᴡηʟσᴧᴅ"
+GC_HELP_BTN: "📒 ᴄσϻϻᴧηᴅs"
 
-START_HELP_BTN: "❓ Help & Commands"
+START_HELP_BTN: "❓ ʜєʟᴘ & ᴄσϻϻᴧηᴅs"
 
-UPDATES_BTN: "📢 Updates"
-SUPPORT_BTN: "💬 Support"
+UPDATES_BTN: "📢 ᴜᴘᴅᴧᴛєs"
+SUPPORT_BTN: "💬 sᴜᴘᴘσꝛᴛ"
 
-HELP_ADMINS_BTN: "🛠 Admins"
-HELP_PUBLIC_BTN: "🌍 Public"
-HELP_OWNER_BTN: "👑 Owner"
-HELP_SUDOERS_BTN: "⚡ Sudoers"
+HELP_ADMINS_BTN: "🛠 ᴧᴅϻɪηs"
+HELP_PUBLIC_BTN: "🌍 ᴘᴜʙʟɪᴄ"
+HELP_OWNER_BTN: "👑 σᴡηєꝛ"
+HELP_SUDOERS_BTN: "⚡ sᴜᴅσєꝛs"
 
-BACK_BTN: "⬅️ Back"
+BACK_BTN: "⬅️ ʙᴧᴄᴋ"
 
 # basically this string used in /command [bool]
 invalid_bool: "⚠️ <b>Invalid value.</b>\nUse 'enable' or 'disable'."
@@ -232,7 +232,7 @@ bug_report_format: |
   <b>Report:</b>
   <pre>{report}</pre>
   
-clear_no_active: "⚠️ <b>No active playback or queue to clear.</b>"
+clear_no_active: "<blockquote>⚠️ <b><u>ɴσ ᴧᴄᴛɪᴠє ᴘʟᴧʏʙᴧᴄᴋ</u></b>\n\n<i>ησ ᴧᴄᴛɪᴠє ᴘʟᴧʏʙᴧᴄᴋ σꝛ ǫᴜєᴜє ᴛσ ᴄʟєᴧꝛ.</i></blockquote>"
 clear_success: "✅ The queue has been cleared by {user}.\n<i>You can restore it using <code>/{cmd}</code> before adding new songs</i>"
 
 err_assistant_banned: |
@@ -314,7 +314,17 @@ flood_seconds: "⏳ Slow down! Try again in {duration} seconds."
 flood_minutes: "⏳ Please wait {duration} minutes before using this command again."
 
 help_private_only: "🤖 Hi! For bot help and commands, please DM me directly — I'm more responsive in private chats!"
-help_main: "📚 <b>Help Menu</b>\n\nSelect a category below to explore detailed commands and their usage for managing, controlling, and customizing the bot."
+help_main: |
+  <blockquote><a href="https://yukiapi.site/file/awTXo6DL">📚</a> <b><u>ʜєʟᴘ &amp; ᴄσϻϻᴧηᴅs ᴍєηᴜ</u></b>
+
+  ✨ <i>ᴄʟɪᴄᴋ ᴛʜє ᴄᴧᴛєɢσꝛʏ ʙᴜᴛᴛσηs ʙєʟσᴡ ᴛσ єxᴘʟσꝛє ᴧʟʟ ᴧᴠᴧɪʟᴧʙʟє ᴄσϻϻᴧηᴅs:</i>
+
+  • 🛠 <b>ᴧᴅϻɪηs</b> ➜ <i>ᴍᴜsɪᴄ &amp; ᴘʟᴧʏʙᴧᴄᴋ ᴄσηᴛꝛσʟs</i>
+  • 🌍 <b>ᴘᴜʙʟɪᴄ</b> ➜ <i>ɢєηєꝛᴧʟ &amp; ᴜsєꝛ ᴄσϻϻᴧηᴅs</i>
+  • 👑 <b>σᴡηєꝛ</b> ➜ <i>ʙσᴛ ᴍᴧηᴧɢєᴍєηᴛ &amp; sʏsᴛєᴍ</i>
+  • ⚡ <b>sᴜᴅσєꝛs</b> ➜ <i>ᴧᴅᴠᴧηᴄєᴅ ʙσᴛ ᴄσηᴛꝛσʟs</i>
+
+  💡 <b>ᴛɪᴘ:</b> <spoiler>ᴜsᴇ /play &lt;song&gt; ᴛᴏ sᴛᴀʀᴛ ɪɴ ᴠᴄ</spoiler></blockquote>
 
 jump_no_active: "⚠️ No active track to jump within."
 jump_usage: "⚠️ Please provide seconds.\nExample: <code>{cmd} 120</code>"
@@ -419,24 +429,28 @@ mute_invalid_duration: "⚠️ Invalid duration for auto-unmute.\nIt must be bet
 mute_invalid_format: "⚠️ Invalid format.\nUse: <code>/{cmd} 30</code> or <code>/{cmd} 30s</code>"
 mute_failed: "❌ <b>Playback Mute Failed</b>\nError: <code>{error}</code>"
 mute_success: |
-  🔇 <b>Muted playback</b>
+  <blockquote>🔇 <b><u>ᴍᴜᴛєᴅ ᴘʟᴧʏʙᴧᴄᴋ</u></b>
 
-  🎵 Track: {title}
-  👤 Muted by: {user}
+  • <b>ᴛꝛᴧᴄᴋ:</b> {title}
+  • <b>ᴍᴜᴛєᴅ ʙʏ:</b> {user}</blockquote>
 
 mute_success_with_time: |
-  🔇 <b>Muted playback</b>
+  <blockquote>🔇 <b><u>ᴍᴜᴛєᴅ ᴘʟᴧʏʙᴧᴄᴋ</u></b>
 
-  🎵 Track: {title}
-  👤 Muted by: {user}
-  <i>⏳ Auto-unmute in <b>{duration}</b> seconds</i>
+  • <b>ᴛꝛᴧᴄᴋ:</b> {title}
+  • <b>ᴍᴜᴛєᴅ ʙʏ:</b> {user}
+  • <i>⏳ ᴧᴜᴛσ-ᴜηᴍᴜᴛє ɪη <b>{duration}</b> sєᴄσηᴅs</i></blockquote>
 
 no_song_query: |
-  <b>🎵 Whoops! No song detected.</b>
+  <blockquote>🎵 <b><u>ɴσ sσηɢ ǫᴜєꝛʏ ᴅєᴛєᴄᴛєᴅ</u></b>
 
-  <i>Type <b>{cmd} [song name]</b> or reply to a <b>media</b> to start playing!</i>
+  • <i>ᴘʟєᴧsє ᴘꝛσᴠɪᴅє ᴧ sσηɢ ηᴧᴍє σꝛ ꝛєᴘʟʏ ᴛσ ᴧη ᴧᴜᴅɪσ/ᴠɪᴅєσ.</i>
+  • <b>ᴜsᴧɢє:</b> <code>{cmd} &lt;song name&gt;</code>
+  • <b>єxᴧᴍᴘʟє:</b> <code>{cmd} closer</code>
 
-no_song_found: "❌ No tracks found."
+  💡 <b>ᴛɪᴘ:</b> <spoiler>ʏᴏᴜ ᴄᴀɴ ᴀʟsᴏ sᴇɴᴅ ʏᴏᴜᴛᴜʙᴇ/sᴘᴏᴛɪꜰʏ ʟɪɴᴋs</spoiler></blockquote>
+
+no_song_found: "<blockquote>❌ <b><u>ɴσ ᴛꝛᴧᴄᴋs ғσυηᴅ</u></b>\n\n<i>ᴄσυʟᴅ ησᴛ ғɪηᴅ ᴧηʏ ᴍᴧᴛᴄʜɪηɢ ꝛєsᴜʟᴛs. ᴘʟєᴧsє ᴛꝛʏ ᴧησᴛʜєꝛ ǫᴜєꝛʏ!</i></blockquote>"
 
 nothumb_status: |
   🖼️ <b>Thumbnail Control</b>
@@ -472,12 +486,11 @@ pause_already: |
   The music is already paused.{auto_resume_line}
 
 pause_success: |
-  ⏸️ <b>Paused playback</b>
+  <blockquote>⏸️ <b><u>ᴘᴧᴜsєᴅ ᴘʟᴧʏʙᴧᴄᴋ</u></b>
 
-  🎵 Track: {title}
-  ⏱️ Position: {position} / {duration}
-  👤 Paused by: {user}
-  {auto_resume_line}
+  • <b>ᴛꝛᴧᴄᴋ:</b> {title}
+  • <b>ᴘσsɪᴛɪση:</b> <code>{position} / {duration}</code>
+  • <b>ᴘᴧᴜsєᴅ ʙʏ:</b> {user}{auto_resume_line}</blockquote>
 
 play_single_track_too_long: |
   ⚠️ You can't play songs longer than {limit_mins} minutes.
@@ -488,21 +501,23 @@ play_download_failed: |
   Error: <code>{error}</code>
 
 play_added_to_queue_single: |
-  <b>🎵 Added to Queue:</b> #{index}
-
-  <b>▫ Track:</b> <a href="{url}">{title}</a>
-  <b>▫ Duration:</b> {duration}
-  <b>▫ Requested by:</b> {by}
+  <blockquote>{thumb} <b><u>ᴧᴅᴅєᴅ ᴛσ ǫᴜєᴜє</u>:</b> #{index}</blockquote>
+  <blockquote>• <b>ᴛꝛᴧᴄᴋ:</b> <a href="{url}">{title}</a>
+  • <b>ᴅᴜꝛᴧᴛɪση:</b> <code>{duration}</code>
+  • <b>ꝛєǫᴜєsᴛєᴅ ʙʏ:</b> {by}</blockquote>
 
 play_multiple_tracks_too_long_header: "<b>⚠️ {count} tracks were skipped (max duration {limit_mins} mins):</b>"
 play_multiple_tracks_too_long_item: "— <i>{title}</i>"
 play_multiple_tracks_too_long_more: "... and {remaining} more."
 play_all_tracks_skipped: "❌ All found tracks were skipped due to duration limits."
 play_failed: "❌ Failed to play\nError: {error}"
-play_unable: "<b> ❌ Unable to Play </b>\n\n<i>Please <b>restart the voice</b> chat.</i>"
+play_unable: "<blockquote>❌ <b><u>ᴜηᴧʙʟє ᴛσ ᴘʟᴧʏ</u></b>\n\n<i>ᴘʟєᴧsє ᴍᴧᴋє sᴜꝛє ᴠσɪᴄє ᴄʜᴧᴛ ɪs ᴧᴄᴛɪᴠє σꝛ ꝛєsᴛᴧꝛᴛ ᴛʜє ᴠᴄ.</i></blockquote>"
 play_downloading_song: "📥 Downloading song \"{title}\""
 play_download_canceled: "⚠️ Download canceled by {user}."
-play_already_in_queue: "✅ <b>Track already added!</b>\n\n<i>{title}</i> is already playing or in the queue."
+play_already_in_queue: |
+  <blockquote>ℹ️ <b><u>ᴧʟꝛєᴧᴅʏ ɪη ǫᴜєᴜє</u></b>
+
+  <i><b>{title}</b> ɪs ᴧʟꝛєᴧᴅʏ ᴘʟᴧʏɪηɢ σꝛ ɪη ᴛʜє ǫᴜєᴜє.</i></blockquote>
 play_added_multiple_header: "➕ <b>Added {count} tracks</b> by {user}"
 play_queue_limit_hint: "⚠️ <i>Queue limit reached — some tracks were skipped.</i>"
 play_queue_view_hint: "<i>Use /queue to view full list.</i>"
@@ -520,16 +535,19 @@ playmode_success_everyone: "✅ <b>Play mode</b> is now <b>Open to Everyone</b>.
 playmode_restricted: "🚫 Play mode is enabled. Only admins and authorized users can play."
 
 # 🏓 Ping messages
-ping_start: "🏓 Pinging..."
+ping_start: "<blockquote>🏓 <b><u>ᴘɪηɢɪηɢ...</u></b>\n\n<i>ᴄʜєᴄᴋɪηɢ ʟᴧᴛєηᴄʏ &amp; sʏsᴛєᴍ sᴛᴧᴛs</i></blockquote>"
 ping_result: |
-  <b>🏓 PONG</b>: <code>{latency}ms</code>
-  
-  <b><u>🤖 {bot} system stat's :</u></b>
-  
-  <b>Uptime:</b> {uptime}
-  <b>RAM Usage:</b> {ram_info}
-  <b>CPU Usage:</b> {cpu_usage}
-  <b>Disk Usage:</b> {disk_usage}
+  <blockquote><a href="https://yukiapi.site/file/ICyh3CVm">🏓</a> <b><u>ᴘσηɢ!</u></b> ➜ <code>{latency}ms</code></blockquote>
+  <blockquote>📊 <b><u>sʏsᴛєᴍ sᴛᴧᴛs</u>:</b>
+
+  • ⏳ <b>ᴜᴘᴛɪᴍє:</b> <code>{uptime}</code>
+  • 🧠 <b>ꝛᴧϻ ᴜsᴧɢє:</b> <code>{ram_info}</code>
+  • ⚡ <b>ᴄᴘᴜ ᴜsᴧɢє:</b> <code>{cpu_usage}</code>
+  • 💾 <b>ᴅɪsᴋ ᴜsᴧɢє:</b> <code>{disk_usage}</code>
+  • 🤖 <b>ʙσᴛ:</b> {bot}
+
+  💡 <b>sᴛᴧᴛᴜs:</b> <spoiler>🟢 ᴀʟʟ sʏsᴛᴇᴍs ᴏᴘᴇʀᴀᴛɪᴏɴᴀʟ</spoiler>
+  🚀 <b>ᴘɪηɢ:</b> <spoiler>⚡ {latency}ms (ᴜʟᴛʀᴀ-ꜰᴀsᴛ)</spoiler></blockquote>
   
 
 position_now: |
@@ -538,7 +556,11 @@ position_now: |
   ⚙️ Speed: <b>{speed}x</b>
 
 queue_limit_reached: "⚠️ Queue limit reached ({limit} tracks max). Use /clear to clear queue."
-queue_no_active: "⚠️ <b>No active playback.</b>\n\n<i>Nothing is queued right now.</i>"
+queue_no_active: |
+  <blockquote>⚠️ <b><u>ɴσ ᴧᴄᴛɪᴠє ǫᴜєᴜє</u></b>
+
+  • <i>ησᴛʜɪηɢ ɪs ǫᴜєᴜєᴅ ꝛɪɢʜᴛ ησᴡ.</i>
+  • <b>ᴜsᴧɢє:</b> <code>/play &lt;song name&gt;</code></blockquote>
 queue_header: "🎶 <b>Current Queue</b>"
 queue_now_playing: "▶️ <b>Now Playing:</b>"
 queue_up_next: "⏭️ <b>Up Next:</b>"
@@ -588,12 +610,12 @@ replay_success: |
 resume_already_playing: "ℹ️ <b>Already Playing</b>\nThe music is already playing in this chat.\nWould you like to pause it?"
 resume_failed: "❌ <b>Playback Resume Failed</b>\nError: <code>{error}</code>"
 resume_success: |
-  ▶️ <b>Resuming playback</b>
+  <blockquote>▶️ <b><u>ꝛєsᴜᴍєᴅ ᴘʟᴧʏʙᴧᴄᴋ</u></b>
 
-  🎵 Title: {title}
-  📍 Position: {position} / {duration}
-  👤 Resumed by: {user}
-  {speed_line}
+  • <b>ᴛꝛᴧᴄᴋ:</b> {title}
+  • <b>ᴘσsɪᴛɪση:</b> <code>{position} / {duration}</code>
+  • <b>ꝛєsᴜᴍєᴅ ʙʏ:</b> {user}
+  {speed_line}</blockquote>
 
 restart: "♻️ Restarting..."
 restart_exepath_fail: "❌ Failed to get executable path: {error}"
@@ -602,14 +624,18 @@ restart_service: "{bot} has just restarted. Sorry for the issues.\n\nStart playi
 restart_initiated: "✅ Restart initiated successfully!"
 restart_fail: "❌ Failed to restart: {error}"
 restart_confirm_running: "⚠️ A song is currently playing in this chat.\nChoose an action below."
-restart_btn_bot: "Restart the Bot"
-restart_btn_replay: "Replay the Song"
+restart_btn_bot: "🔄 ꝛєsᴛᴧꝛᴛ ʙσᴛ"
+restart_btn_replay: "🔁 ꝛєᴘʟᴧʏ sσηɢ"
 restart_confirm_bot: "♻️ Restarting the bot..."
 restart_confirm_replay_done: "⏮️ Current song replayed successfully."
 
 
 room_not_active_cb: "⚠️ Nothing playing right now."
-room_no_active: "⚠️ <b>No active playback.</b>\n\n<i>There's nothing playing right now.</i>"
+room_no_active: |
+  <blockquote>⚠️ <b><u>ɴσ ᴧᴄᴛɪᴠє ᴘʟᴧʏʙᴧᴄᴋ</u></b>
+
+  • <i>ᴛʜєꝛє's ησᴛʜɪηɢ ᴘʟᴧʏɪηɢ ꝛɪɢʜᴛ ησᴡ.</i>
+  • <b>ᴜsᴧɢє:</b> <code>/play &lt;song name&gt;</code></blockquote>
 room_not_linked: "⚠️ This channel isn't linked to any group."
 
 room_already_paused: "⏸️ Track is already paused. Tap ▶️ Resume to continue."
@@ -682,11 +708,11 @@ searching: "🔍🎶 Searching... ⚡✨"
 searching_query: "🔍🎶 Searching for: <b>{query}</b>... ⚡✨"
 
 
-settings_btn_adminmode: "🛡️ Admin Mode"
-settings_btn_cmddelete: "🗑️ Cmd Delete"
-settings_btn_lang: "🌐 Language"
-settings_btn_nothumb: "🖼️ Thumbnails"
-settings_btn_playmode: "🎵 Play Mode"
+settings_btn_adminmode: "🛡️ ᴧᴅϻɪη ᴍσᴅє"
+settings_btn_cmddelete: "🗑️ ᴄϻᴅ ᴅєʟєᴛє"
+settings_btn_lang: "🌐 ʟᴧηɢᴜᴧɢє"
+settings_btn_nothumb: "🖼️ ᴛʜᴜϻʙηᴧɪʟs"
+settings_btn_playmode: "🎵 ᴘʟᴧʏ ᴍσᴅє"
 
 settings_info_adminmode: |
   🛡️ What is this?
@@ -698,8 +724,8 @@ settings_info_cmddelete: |
 
   When enabled, the bot will automatically delete command messages after processing them to keep the chat clean.
 
-settings_btn_cleanduration: "⏱️ Clean Delay"
-settings_btn_cleanmode: "🧹 Clean Mode"
+settings_btn_cleanduration: "⏱️ ᴄʟєᴧη ᴅєʟᴧʏ"
+settings_btn_cleanmode: "🧹 ᴄʟєᴧη ᴍσᴅє"
 settings_info_cleanduration: |
   Cycles auto-delete delay: 15m → 30m → 60m → 5m.
 
@@ -793,7 +819,7 @@ sudo_list_owner: "{index}. {user} — <b>Owner</b>"
 sudo_list_entry: "{index}. {user}"
 sudo_list_no_extra: "⚠️ No additional sudoers found."
 
-seek_no_active: "⚠️ <b>No track is currently playing.</b>"
+seek_no_active: "<blockquote>⚠️ <b><u>ɴσ ᴧᴄᴛɪᴠє ᴛꝛᴧᴄᴋ</u></b>\n\n<i>ησ ᴛꝛᴧᴄᴋ ɪs ᴄᴜꝛꝛєηᴛʟʏ ᴘʟᴧʏɪηɢ.</i></blockquote>"
 seek_usage: "⚠️ Please provide seconds.\nExample: <code>{cmd} 40</code>"
 seek_invalid_seconds: "⚠️ Invalid seconds value.\nExample: <code>{cmd} 40</code>"
 seek_too_close_start: "⚠️ Cannot seek backward <b>{seconds}</b> seconds — that would be too close to the beginning of the track."
@@ -811,12 +837,20 @@ stop_confirm_muted: |
 
   Do you want to unmute or stop it completely?
 
-stopped: "⏹️ <b>Playback stopped and cleared by {user}.</b>"
+stopped: |
+  <blockquote>⏹️ <b><u>sᴛσᴘᴘєᴅ ᴘʟᴧʏʙᴧᴄᴋ</u></b>
+
+  • <i>ᴘʟᴧʏʙᴧᴄᴋ sᴛσᴘᴘєᴅ &amp; ǫᴜєᴜє ᴄʟєᴧꝛєᴅ.</i>
+  • <b>sᴛσᴘᴘєᴅ ʙʏ:</b> {user}</blockquote>
 
 shuffle_current_state: "🔀 Currently shuffle is <b>{state}</b> for this chat.\n\nUse <code>{cmd}</code> to toggle it."
 shuffle_updated: "🔀 Shuffle <b>{state}</b> by {user}."
 
-skip_stopped: "⏹️ Playback stopped. Queue is empty.\nSkipped by: {user}"
+skip_stopped: |
+  <blockquote>⏹️ <b><u>ᴘʟᴧʏʙᴧᴄᴋ sᴛσᴘᴘєᴅ</u></b>
+
+  • <i>ησ ᴍσꝛє ᴛꝛᴧᴄᴋs ɪη ǫᴜєᴜє.</i>
+  • <b>sᴋɪᴘᴘєᴅ ʙʏ:</b> {user}</blockquote>
 skip_invalid_number: "⚠️ Please provide a valid number after /skip.\nExample: <code>/skip 3</code>"
 skip_queue_empty_for_count: "⚠️ Queue has no upcoming tracks to skip."
 skip_count_exceeds_queue: "⚠️ You requested to skip <code>{requested}</code> queued tracks, but only <code>{available}</code> track(s) are in queue."
@@ -888,21 +922,37 @@ spt_result: |
   Download: <code>{dl_mbps} Mbps</code>
   Upload: <code>{ul_mbps} Mbps</code>
 
-start_private: "Hello {user}, My name is {bot}.\n\nI'm a telegram streaming bot with some useful features. Supporting platforms like Youtube, Spotify, JioSaavn, Soundcloud etc.\n\nFeel free to add me to your groups."
+start_private: |
+  <blockquote><a href="https://yukiapi.site/file/iCggpP12">👋</a> <b>ʜєʏ {user}</b>, <i>ᴍʏ ηᴧᴍє ɪs</i> {bot} 🎶
+
+  ✨ <b><u>ᴧʙσυᴛ ᴍє</u>:</b>
+  • ᴧ ᴘσᴡєꝛғᴜʟ & ʜɪɢʜ-ǫᴜᴧʟɪᴛʏ ᴛєʟєɢꝛᴧᴍ ᴍᴜsɪᴄ sᴛꝛєᴧᴍɪηɢ ʙσᴛ.
+  • <s>ʟᴧɢɢʏ ᴧᴜᴅɪσ</s> ➜ <spoiler><b>ᴜʟᴛꝛᴧ ʜᴅ ǫᴜᴧʟɪᴛʏ 🎧</b></spoiler>
+  • sᴜᴘᴘσꝛᴛs: <code>ʏσυᴛᴜʙє</code>, <code>sᴘσᴛɪғʏ</code>, <code>ᴊɪσsᴧᴧᴠη</code>, <code>sσυηᴅᴄʟσυᴅ</code> & ᴍσꝛє.
+  • <b>sᴛᴧᴛᴜs:</b> <spoiler>⚡ ᴏɴʟɪɴᴇ & ʀᴇᴀᴅʏ ᴛᴏ ᴘʟᴀʏ</spoiler>
+
+  💫 <i>ғєєʟ ғꝛєє ᴛσ ᴧᴅᴅ ᴍє ᴛσ ʏσυꝛ ɢꝛσυᴘs & єηᴊσʏ!</i> ✨</blockquote>
+  <blockquote collapsed="true">📖 <b><u>ǫᴜɪᴄᴋ ɢᴜɪᴅє & ᴄσϻϻᴧηᴅs</u>:</b>
+  • <b>/play</b> <code>&lt;song&gt;</code> ➜ <i>ᴘʟᴧʏ ᴧᴜᴅɪσ ɪη ɢꝛσυᴘ ᴠᴄ</i>
+  • <b>/vplay</b> <code>&lt;query&gt;</code> ➜ <i>ᴘʟᴧʏ ᴠɪᴅєσ ɪη ɢꝛσυᴘ ᴠᴄ</i>
+  • <b>/settings</b> ➜ <i>ᴄᴜsᴛσᴍɪᴢє ʙσᴛ ᴘꝛєғєꝛєηᴄєs</i>
+  • <b>/help</b> ➜ <i>ɢєᴛ ғᴜʟʟ ᴄσϻϻᴧηᴅ ʟɪsᴛ</i>
+  • <b>sᴇᴄʀᴇᴛ:</b> <spoiler>⚡ ᴜsє /speedtest ᴛσ ᴄʜєᴄᴋ ᴘɪηɢ</spoiler>
+  • <b>ᴛɪᴘ:</b> <spoiler>💡 ᴜsᴇ /cplay ғᴏʀ ᴄʜᴀɴɴᴇʟ ꜱᴛʀᴇᴀᴍɪɴɢ</spoiler></blockquote>
 
 start_group: "<b>💫 I’m here!</b> Try a command… if you think you can handle me 😉"
 
 stream_channelid_fail: "⚠️ Failed to get your connected channel’s ID."
-stream_queue_finished: "🎵 <b>Queue Finished!</b>\n\nNo more songs to play. Use /play to add more tracks! 🎶"
-stream_downloading_next: "📥 Downloading your next track..."
+stream_queue_finished: "<blockquote>🎵 <b><u>ǫᴜєᴜє ғɪηɪsʜєᴅ</u></b>\n\n<i>ησ ᴍσꝛє ᴛꝛᴧᴄᴋs ʟєғᴛ ᴛσ ᴘʟᴧʏ. ᴜsє /play ᴛσ ᴧᴅᴅ ᴍσꝛє! 🎶</i></blockquote>"
+stream_downloading_next: "<blockquote>📥 <b><u>ᴅσᴡηʟσαᴅɪηɢ ηєхᴛ ᴛꝛᴧᴄᴋ...</u></b></blockquote>"
+autoplay_fetching_next: "<blockquote>🎵 <b><u>ᴧᴜᴛσᴘʟᴧʏ</u></b> ➜ <i>ғєᴛᴄʜɪηɢ ηєхᴛ ᴛꝛᴧᴄᴋ...</i></blockquote>"
 stream_download_fail: "❌ Failed to download.\nError: <code>{error}</code>"
 stream_play_fail: "❌ Failed to play the song."
 stream_now_playing: |
-  <b>🎵 Now Playing:</b>
-
-  <b>▫ Track:</b> <a href="{url}">{title}</a>
-  <b>▫ Duration:</b> {duration}
-  <b>▫ Requested by:</b> {by}
+  <blockquote>{thumb} <b><u>ησᴡ ᴘʟᴧʏɪηɢ</u></b></blockquote>
+  <blockquote>• <b>ᴛꝛᴧᴄᴋ:</b> <a href="{url}">{title}</a>
+  • <b>ᴅᴜꝛᴧᴛɪση:</b> <code>{duration}</code>
+  • <b>ꝛєǫᴜєsᴛєᴅ ʙʏ:</b> {by}</blockquote>
 
 # 👑 Sudo / Owner Join Messages
 sudo_join_owner: "👑 {user} — owner of {bot} — just entered the chat."
@@ -921,11 +971,11 @@ supergroup_needed: |
 unmute_already: "ℹ️ <b>Already Unmuted</b>\nThe music is not muted in this chat."
 unmute_failed: "❌ <b>Playback Unmute Failed</b>\nError: <code>{error}</code>"
 unmute_success: |
-  🔊 <b>Unmuted playback</b>
+  <blockquote>🔊 <b><u>ᴜηᴍᴜᴛєᴅ ᴘʟᴧʏʙᴧᴄᴋ</u></b>
 
-  🎵 Track: {title}
-  👤 Unmuted by: {user}
-  {speed_line}
+  • <b>ᴛꝛᴧᴄᴋ:</b> {title}
+  • <b>ᴜηᴍᴜᴛєᴅ ʙʏ:</b> {user}
+  {speed_line}</blockquote>
 
 
 # 🔊 Voice Chat Events
@@ -934,85 +984,81 @@ voicechat_started: "<b>♻️ Voice chat started!</b>\n\n<i>Use /play [song name
 
 # Commands help
 help_owner: |
-  👑 <b>Owner Commands</b>
+  <blockquote><a href="https://yukiapi.site/file/awTXo6DL">👑</a> <b><u>σᴡηєꝛ ᴄσϻϻᴧηᴅs</u></b>
 
-  <i>Exclusive tools for managing sudoers, executing system code, and performing bot administration securely.</i>
+  <i>ᴇxᴄʟᴜsɪᴠє ᴛσσʟs ғσꝛ sʏsᴛєᴍ ᴧᴅᴍɪηɪsᴛꝛᴧᴛɪση &amp; sᴜᴅσ ᴍᴧηᴧɢєᴍєηᴛ.</i>
 
-  <b>Commands:</b>
-  <blockquote>
-  <b>/addsudo</b> - Add a new user to bot's sudolist
-  <b>/delsudo</b> - Remove a user from bot's sudolist
-  <b>/blockuser</b> - Prevent user from using bot
-  <b>/unblockuser</b> - Allow user to use bot again
-  <b>/blockchat</b> - Prevent chat from using bot
-  <b>/unblockchat</b> - Allow chat to use bot again
-  <b>/blacklisted</b> - Show global blacklist
-  <b>/eval</b> - Execute Go code snippets
-  <b>/maintenance</b> — Manage the bot’s maintenance mode
-  <b>/restart</b> — Restart the bot
-  <b>/sh</b> - Run shell commands
-  </blockquote>
+  • <b>/addsudo</b> ➜ <i>ᴧᴅᴅ ᴧ ᴜsєꝛ ᴛσ sᴜᴅσ ʟɪsᴛ</i>
+  • <b>/delsudo</b> ➜ <i>ꝛєᴍσᴠє ᴧ ᴜsєꝛ ғꝛσᴍ sᴜᴅσ ʟɪsᴛ</i>
+  • <b>/blockuser</b> ➜ <i>ᴘꝛєᴠєηᴛ ᴜsєꝛ ғꝛσᴍ ᴜsɪηɢ ʙσᴛ</i>
+  • <b>/unblockuser</b> ➜ <i>ᴜηʙʟσᴄᴋ ᴜsєꝛ ғꝛσᴍ ʙσᴛ</i>
+  • <b>/blockchat</b> ➜ <i>ʙʟσᴄᴋ ᴄʜᴧᴛ ғꝛσᴍ ᴜsɪηɢ ʙσᴛ</i>
+  • <b>/unblockchat</b> ➜ <i>ᴜηʙʟσᴄᴋ ᴄʜᴧᴛ ғꝛσᴍ ʙσᴛ</i>
+  • <b>/blacklisted</b> ➜ <i>ᴠɪєᴡ ɢʟσʙᴧʟ ʙʟᴧᴄᴋʟɪsᴛ</i>
+  • <b>/eval</b> ➜ <i>єxєᴄᴜᴛє ɢσ ᴄσᴅє sηɪᴘᴘєᴛs</i>
+  • <b>/maintenance</b> ➜ <i>ᴛσɢɢʟє ᴍᴧɪηᴛєηᴧηᴄє ᴍσᴅє</i>
+  • <b>/restart</b> ➜ <i>ꝛєsᴛᴧꝛᴛ ᴛʜє ʙσᴛ єηɢɪηє</i>
+  • <b>/sh</b> ➜ <i>ꝛᴜη sʜєʟʟ ᴄσϻϻᴧηᴅs</i>
+
+  🔒 <b>sᴇᴄᴜʀɪᴛʏ:</b> <spoiler>ᴏᴡɴᴇʀ ᴄᴏᴍᴍᴀɴᴅꜱ ᴀʀᴇ ꜱᴛʀɪᴄᴛʟʏ ʀᴇꜱᴛʀɪᴄᴛᴇᴅ</spoiler></blockquote>
 
 help_sudo: |
-  ⚡ <b>Sudoer Commands</b>
+  <blockquote><a href="https://yukiapi.site/file/awTXo6DL">⚡</a> <b><u>sᴜᴅσєꝛ ᴄσϻϻᴧηᴅs</u></b>
 
-  <i>Advanced tools for managing bot behavior, monitoring performance, and controlling logging and automation.</i>
+  <i>ᴧᴅᴠᴧηᴄєᴅ ᴛσσʟs ғσꝛ ᴍσηɪᴛσꝛɪηɢ &amp; ᴄσηᴛꝛσʟʟɪηɢ ʙσᴛ ʙєʜᴧᴠɪσꝛ.</i>
 
-  <b>Commands:</b>
-  <blockquote>
-  <b>/active</b> - Shows total active chats
-  <b>/autoleave</b> - Toggle automatic chat leaving
-  <b>/logger</b> - Enable or disable logger
-  <b>/stats</b> - Display the bot & system stats
-  <b>/logs</b> - Get the system logs 
-  </blockquote>
+  • <b>/active</b> ➜ <i>ᴠɪєᴡ ᴧᴄᴛɪᴠє ᴠᴄ ᴄʜᴧᴛs</i>
+  • <b>/autoleave</b> ➜ <i>ᴛσɢɢʟє ᴧᴜᴛσ-ʟєᴧᴠє ɪηᴧᴄᴛɪᴠє ᴠᴄ</i>
+  • <b>/logger</b> ➜ <i>єηᴧʙʟє σꝛ ᴅɪsᴧʙʟє ʟσɢɢєꝛ</i>
+  • <b>/stats</b> ➜ <i>ᴠɪєᴡ ʙσᴛ &amp; sʏsᴛєᴍ sᴛᴧᴛs</i>
+  • <b>/logs</b> ➜ <i>ɢєᴛ ʟɪᴠє sʏsᴛєᴍ ʟσɢs</i>
+
+  ⚡ <b>sᴛᴧᴛᴜs:</b> <spoiler>ꜱᴜᴅᴏᴇʀ ᴀᴄᴄᴇꜱꜱ ɢʀᴀɴᴛᴇᴅ</spoiler></blockquote>
 
 help_admin: |
-  🛠 <b>Admin Commands</b>
+  <blockquote><a href="https://yukiapi.site/file/awTXo6DL">🛠</a> <b><u>ᴧᴅϻɪη ᴄσϻϻᴧηᴅs</u></b>
 
-  <i>Music and playback control tools for admins to handle playback easily.</i>
+  <i>ᴍᴜsɪᴄ &amp; ᴘʟᴧʏʙᴧᴄᴋ ᴄσηᴛꝛσʟs ғσꝛ ɢꝛσυᴘ ᴧᴅϻɪηs.</i>
 
-  <b>Commands:</b>
-  <blockquote>
-  <b>/playmode</b> - Control who can use /play
-  <b>/cplay</b> - Play in linked channel voice chat
-  <b>/adminmode</b> - Control who can use admin commands
-  <b>/cmddelete</b> - Toggle automatic deletion of bot commands
-  <b>/settings</b> - Configure chat settings
-  <b>/speed</b> - Change playback speed
-  <b>/skip</b> - Skip the current song
-  <b>/pause</b> - Pause the current playback
-  <b>/resume</b> - Resume paused playback
-  <b>/replay</b> - Replay the current song
-  <b>/mute</b> - Mute playback
-  <b>/unmute</b> - Unmute playback
-  <b>/seek</b> - Seek forward by a few seconds
-  <b>/seekback</b> - Seek backward by a few seconds
-  <b>/jump</b> - Jump to a given time in track
-  <b>/move</b> - Move a queued track to another position
-  <b>/clear</b> - Clear all songs from queue
-  <b>/remove</b> - Remove a specific track from queue
-  <b>/shuffle</b> - Shuffle all queued tracks
-  <b>/loop</b> - Enable or disable looping
-  <b>/stop</b> - Stop playback and leave VC
-  <b>/nothumb</b> - Enable or disable artwork/thumbnail in playback messages
-  </blockquote>
-  
+  • <b>/playmode</b> ➜ <i>ᴄσηᴛꝛσʟ ᴡʜσ ᴄᴧη ᴜsє /play</i>
+  • <b>/cplay</b> ➜ <i>ᴘʟᴧʏ ɪη ʟɪηᴋєᴅ ᴄʜᴧηηєʟ ᴠᴄ</i>
+  • <b>/adminmode</b> ➜ <i>ᴄσηᴛꝛσʟ ᴧᴅϻɪη ᴄσϻϻᴧηᴅs ᴍσᴅє</i>
+  • <b>/cmddelete</b> ➜ <i>ᴧᴜᴛσ-ᴅєʟєᴛє ʙσᴛ ᴄσϻϻᴧηᴅs</i>
+  • <b>/settings</b> ➜ <i>ᴄσηғɪɢᴜꝛє ᴄʜᴧᴛ sєᴛᴛɪηɢs</i>
+  • <b>/speed</b> ➜ <i>ᴄʜᴧηɢє ᴘʟᴧʏʙᴧᴄᴋ sᴘєєᴅ</i>
+  • <b>/skip</b> ➜ <i>sᴋɪᴘ ᴄᴜꝛꝛєηᴛ sσηɢ</i>
+  • <b>/pause</b> ➜ <i>ᴘᴧᴜsє ᴘʟᴧʏʙᴧᴄᴋ</i>
+  • <b>/resume</b> ➜ <i>ꝛєsᴜᴍє ᴘʟᴧʏʙᴧᴄᴋ</i>
+  • <b>/replay</b> ➜ <i>ꝛєᴘʟᴧʏ ᴄᴜꝛꝛєηᴛ sσηɢ</i>
+  • <b>/mute</b> ➜ <i>ᴍᴜᴛє ᴠᴄ ᴘʟᴧʏʙᴧᴄᴋ</i>
+  • <b>/unmute</b> ➜ <i>ᴜηᴍᴜᴛє ᴠᴄ ᴘʟᴧʏʙᴧᴄᴋ</i>
+  • <b>/seek</b> ➜ <i>sєєᴋ ғσꝛᴡᴧꝛᴅ ɪη ᴛꝛᴧᴄᴋ</i>
+  • <b>/seekback</b> ➜ <i>sєєᴋ ʙᴧᴄᴋᴡᴧꝛᴅ ɪη ᴛꝛᴧᴄᴋ</i>
+  • <b>/jump</b> ➜ <i>ᴊᴜᴍᴘ ᴛσ sᴘєᴄɪғɪᴄ ᴛɪᴍє</i>
+  • <b>/move</b> ➜ <i>ᴍσᴠє ǫᴜєᴜє ᴘσsɪᴛɪση</i>
+  • <b>/clear</b> ➜ <i>ᴄʟєᴧꝛ ᴧʟʟ sσηɢs ғꝛσᴍ ǫᴜєᴜє</i>
+  • <b>/remove</b> ➜ <i>ꝛєᴍσᴠє ᴛꝛᴧᴄᴋ ғꝛσᴍ ǫᴜєᴜє</i>
+  • <b>/shuffle</b> ➜ <i>sʜᴜғғʟє ǫᴜєᴜє ᴛꝛᴧᴄᴋs</i>
+  • <b>/loop</b> ➜ <i>єηᴧʙʟє/ᴅɪsᴧʙʟє ʟσσᴘɪηɢ</i>
+  • <b>/stop</b> ➜ <i>sᴛσᴘ ᴘʟᴧʏʙᴧᴄᴋ &amp; ʟєᴧᴠє ᴠᴄ</i>
+  • <b>/nothumb</b> ➜ <i>ᴛσɢɢʟє ᴧꝛᴛᴡσꝛᴋ ɪη ᴍєssᴧɢєs</i>
+
+  💡 <b>ᴛɪᴘ:</b> <spoiler>ᴜsᴇ /cplay &lt;song&gt; ᴛᴏ sᴛʀᴇᴀᴍ ɪɴ ᴄʜᴀɴɴᴇʟ</spoiler></blockquote>
+
 help_public: |
-  🌍 <b>Public Commands</b>
+  <blockquote><a href="https://yukiapi.site/file/awTXo6DL">🌍</a> <b><u>ᴘᴜʙʟɪᴄ ᴄσϻϻᴧηᴅs</u></b>
 
-  <i>Features for playing songs, viewing queues, checking latency, and reporting bugs.</i>
+  <i>ғєᴧᴛᴜꝛєs ᴧᴠᴧɪʟᴧʙʟє ғσꝛ ᴧʟʟ ɢꝛσυᴘ ᴍєᴍʙєꝛs.</i>
 
-  <b>Commands:</b>
-  <blockquote>
-  <b>/play</b> - Play a song
-  <b>/queue</b> - View all tracks currently queued
-  <b>/ping</b> - Check bot’s network latency
-  <b>/start</b> - Start the bot
-  <b>/help</b> - Show help menu
-  <b>/bug</b> - Report an issue or problem
-  <b>/position</b> - Show current track’s timestamp
-  <b>/reload</b> - Reload admin or cache data
-  <b>/json</b> - Show message JSON structure
-  <b>/sudolist</b> - View sudo user list
-  </blockquote>
+  • <b>/play</b> ➜ <i>ᴘʟᴧʏ ᴧᴜᴅɪσ ɪη ɢꝛσυᴘ ᴠᴄ</i>
+  • <b>/vplay</b> ➜ <i>ᴘʟᴧʏ ᴠɪᴅєσ ɪη ɢꝛσυᴘ ᴠᴄ</i>
+  • <b>/queue</b> ➜ <i>ᴠɪєᴡ ᴄᴜꝛꝛєηᴛ ǫᴜєᴜєᴅ ᴛꝛᴧᴄᴋs</i>
+  • <b>/ping</b> ➜ <i>ᴄʜєᴄᴋ ʙσᴛ ʟᴧᴛєηᴄʏ</i>
+  • <b>/start</b> ➜ <i>sᴛᴧꝛᴛ ᴛʜє ʙσᴛ ᴍєηᴜ</i>
+  • <b>/help</b> ➜ <i>sʜσᴡ ʜєʟᴘ &amp; ᴄσϻϻᴧηᴅs</i>
+  • <b>/bug</b> ➜ <i>ꝛєᴘσꝛᴛ ᴧη ɪssᴜє/ʙᴜɢ</i>
+  • <b>/position</b> ➜ <i>sʜσᴡ ᴛꝛᴧᴄᴋ ᴛɪᴍєsᴛᴧᴍᴘ</i>
+  • <b>/reload</b> ➜ <i>ꝛєʟσᴧᴅ ᴧᴅϻɪη ᴄᴧᴄʜє</i>
+  • <b>/sudolist</b> ➜ <i>ᴠɪєᴡ ʙσᴛ sᴜᴅσ ᴜsєꝛs</i>
+
+  🎵 <b>ғᴜɴ:</b> <spoiler>ꜱᴜᴘᴘᴏʀᴛꜱ ʏᴏᴜᴛᴜʙᴇ, ꜱᴘᴏᴛɪꜰʏ &amp; ᴍᴏʀᴇ!</spoiler></blockquote>

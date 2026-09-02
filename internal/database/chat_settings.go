@@ -42,6 +42,7 @@ type ChatSettings struct {
 	CommandDelete         bool       `bson:"cmd_delete"`
 	CleanMode             bool       `bson:"clean_mode"`
 	CleanModeDurationMins int        `bson:"clean_mode_duration_mins"`
+	AutoplayEnabled       bool       `bson:"autoplay_enabled"`
 }
 
 func defaultChatSettings(chatID int64) *ChatSettings {
@@ -49,6 +50,7 @@ func defaultChatSettings(chatID int64) *ChatSettings {
 		ChatID:                chatID,
 		AuthUsers:             []int64{},
 		CleanModeDurationMins: 15,
+		AutoplayEnabled:       false, // Default OFF as requested
 	}
 }
 

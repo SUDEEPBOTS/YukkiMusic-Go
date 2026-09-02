@@ -184,8 +184,10 @@ func handleSkip(m *telegram.NewMessage, cplay bool) error {
 
 	title := utils.ShortTitle(t.Title, 25)
 	safeTitle := utils.EscapeHTML(title)
+	thumbTag := getThumbTag(chatID, t.Artwork)
 
 	msg := F(chatID, "stream_now_playing", locales.Arg{
+		"thumb":    thumbTag,
 		"url":      t.URL,
 		"title":    safeTitle,
 		"duration": utils.FormatDuration(t.Duration),
@@ -195,10 +197,8 @@ func handleSkip(m *telegram.NewMessage, cplay bool) error {
 	opt := &telegram.SendOptions{
 		ParseMode:   "HTML",
 		ReplyMarkup: core.GetPlayMarkup(chatID, r, false),
-	}
-
-	if t.Artwork != "" && shouldShowThumb(chatID) {
-		opt.Media = utils.CleanURL(t.Artwork)
+		LinkPreview: true,
+		InvertMedia: false,
 	}
 
 	var newStatusMsg *telegram.NewMessage

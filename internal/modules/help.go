@@ -65,7 +65,11 @@ func helpHandler(m *tg.NewMessage) error {
 
 	m.Reply(
 		F(m.ChannelID(), "help_main"),
-		&tg.SendOptions{ReplyMarkup: core.GetHelpKeyboard(m.ChannelID())},
+		&tg.SendOptions{
+			ReplyMarkup: core.GetHelpKeyboard(m.ChannelID()),
+			LinkPreview: true,
+			InvertMedia: true,
+		},
 	)
 	return tg.ErrEndGroup
 }
@@ -73,7 +77,11 @@ func helpHandler(m *tg.NewMessage) error {
 func helpCB(c *tg.CallbackQuery) error {
 	c.Edit(
 		F(c.ChannelID(), "help_main"),
-		&tg.SendOptions{ReplyMarkup: core.GetHelpKeyboard(c.ChannelID())},
+		&tg.SendOptions{
+			ReplyMarkup: core.GetHelpKeyboard(c.ChannelID()),
+			LinkPreview: true,
+			InvertMedia: true,
+		},
 	)
 	c.Answer("")
 	return tg.ErrEndGroup
@@ -108,7 +116,11 @@ func helpCallbackHandler(c *tg.CallbackQuery) error {
 		btn = core.GetHelpKeyboard(chatID)
 	}
 
-	c.Edit(text, &tg.SendOptions{ReplyMarkup: btn})
+	c.Edit(text, &tg.SendOptions{
+		ReplyMarkup: btn,
+		LinkPreview: true,
+		InvertMedia: true,
+	})
 	return tg.ErrEndGroup
 }
 
