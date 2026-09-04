@@ -254,7 +254,7 @@ func pickAutoplayCandidate(chatID int64, cur *state.Track) *state.Track {
 		cleanTitle := cleanSongTitleForSearch(cur.Title)
 		gologging.InfoF("[Autoplay] Radio mix empty for %s, falling back to smart search: %q", cur.Title, cleanTitle)
 		query := fmt.Sprintf("%s similar songs", cleanTitle)
-		if searchTracks, sErr := platforms.GetYouTubePlaylist(context.Background(), query); sErr == nil && len(searchTracks) > 0 {
+		if searchTracks, sErr := platforms.SearchTracks(query, false); sErr == nil && len(searchTracks) > 0 {
 			for _, t := range searchTracks {
 				if t.ID != "" && t.ID != cur.ID && !apIsPlayed(chatID, t.ID) {
 					candidates = append(candidates, t)
