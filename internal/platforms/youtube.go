@@ -260,7 +260,7 @@ func (p *YouTubePlatform) Download(
 		apiKey = os.Getenv("API_KEY")
 	}
 	if apiKey == "" {
-		apiKey = "yuki_2084d6843575ccedb14c28cc1db5c2c0"
+		apiKey = "yuki_ecfcdb333b42188f42123b36dca90b6c"
 	}
 	streamURL := fmt.Sprintf("https://music.yukiapi.site/stream/%s?api_key=%s&type=%s", track.ID, apiKey, reqType)
 	req, err := http.NewRequestWithContext(ctx, "GET", streamURL, nil)
