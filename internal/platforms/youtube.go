@@ -254,8 +254,15 @@ func (p *YouTubePlatform) Download(
 		}
 	}
 
-	// 2. PRIMARY: Ultra-Fast Go API Engine for BOTH Audio & Video (http://music.yukiapi.site)
-	streamURL := fmt.Sprintf("http://music.yukiapi.site/stream/%s?type=%s", track.ID, reqType)
+	// 2. PRIMARY: Ultra-Fast Go API Engine for BOTH Audio & Video (https://music.yukiapi.site)
+	apiKey := os.Getenv("YUKI_API_KEY")
+	if apiKey == "" {
+		apiKey = os.Getenv("API_KEY")
+	}
+	if apiKey == "" {
+		apiKey = "yuki_2084d6843575ccedb14c28cc1db5c2c0"
+	}
+	streamURL := fmt.Sprintf("https://music.yukiapi.site/stream/%s?api_key=%s&type=%s", track.ID, apiKey, reqType)
 	req, err := http.NewRequestWithContext(ctx, "GET", streamURL, nil)
 	if err == nil {
 		client := &http.Client{Timeout: 120 * time.Second}
