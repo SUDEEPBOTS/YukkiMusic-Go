@@ -89,6 +89,8 @@ var AllCommands = BotCommands{
 		// Skip
 		cmd("skip", "Skip the current song."),
 		cmd("cskip", "Skip the current song in the linked channel."),
+		cmd("askip", "Skip to next autoplay track."),
+		cmd("caskip", "Skip to next autoplay in linked channel."),
 
 		// Replay
 		cmd("replay", "Replay the current song."),

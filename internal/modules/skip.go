@@ -20,11 +20,13 @@ package modules
 import (
 	"context"
 	"strconv"
+	"time"
 
 	"github.com/Laky-64/gologging"
 	"github.com/amarnathcjd/gogram/telegram"
 
 	"main/internal/core"
+	"main/internal/database"
 	"main/internal/locales"
 	"main/internal/platforms"
 	"main/internal/utils"
@@ -56,6 +58,14 @@ func skipHandler(m *telegram.NewMessage) error {
 
 func cskipHandler(m *telegram.NewMessage) error {
 	return handleSkip(m, true)
+}
+
+func askipHandler(m *telegram.NewMessage) error {
+	return handleAutoplaySkip(m, false)
+}
+
+func caskipHandler(m *telegram.NewMessage) error {
+	return handleAutoplaySkip(m, true)
 }
 
 func handleSkip(m *telegram.NewMessage, cplay bool) error {
@@ -100,7 +110,9 @@ func handleSkip(m *telegram.NewMessage, cplay bool) error {
 	}
 
 	if len(r.Queue()) == 0 {
-
+		if database.IsAutoplayEnabled(chatID) {
+			return handleAutoplaySkip(m, cplay)
+		}
 		scheduleOldPlayingMessage(r)
 		core.DeleteRoom(r.ID)
 		m.Reply(F(chatID, "skip_stopped", locales.Arg{
@@ -113,7 +125,9 @@ func handleSkip(m *telegram.NewMessage, cplay bool) error {
 
 	for i := 1; i < skipCount; i++ {
 		if len(r.Queue()) == 0 {
-
+			if database.IsAutoplayEnabled(chatID) {
+				return handleAutoplaySkip(m, cplay)
+			}
 			scheduleOldPlayingMessage(r)
 			core.DeleteRoom(r.ID)
 			m.Reply(F(chatID, "skip_stopped", locales.Arg{
@@ -125,7 +139,9 @@ func handleSkip(m *telegram.NewMessage, cplay bool) error {
 	}
 
 	if len(r.Queue()) == 0 {
-
+		if database.IsAutoplayEnabled(chatID) {
+			return handleAutoplaySkip(m, cplay)
+		}
 		scheduleOldPlayingMessage(r)
 		core.DeleteRoom(r.ID)
 		m.Reply(F(chatID, "skip_stopped", locales.Arg{
@@ -136,7 +152,9 @@ func handleSkip(m *telegram.NewMessage, cplay bool) error {
 
 	t := r.NextTrack()
 	if t == nil {
-
+		if database.IsAutoplayEnabled(chatID) {
+			return handleAutoplaySkip(m, cplay)
+		}
 		scheduleOldPlayingMessage(r)
 		core.DeleteRoom(r.ID)
 		m.Reply(F(chatID, "skip_stopped", locales.Arg{
@@ -214,3 +232,127 @@ func handleSkip(m *telegram.NewMessage, cplay bool) error {
 
 	return telegram.ErrEndGroup
 }
+
+func handleAutoplaySkip(m *telegram.NewMessage, cplay bool) error {
+	r, err := getEffectiveRoom(m, cplay)
+	if err != nil {
+		m.Reply(err.Error())
+		return telegram.ErrEndGroup
+	}
+
+	chatID := m.ChannelID()
+	if !r.IsActiveChat() {
+		m.Reply(F(chatID, "room_no_active"))
+		return telegram.ErrEndGroup
+	}
+
+	last := r.Track()
+	if last == nil {
+		m.Reply(F(chatID, "room_no_active"))
+		return telegram.ErrEndGroup
+	}
+
+	statusMsg, err := core.Bot.SendMessage(
+		chatID,
+		F(chatID, "autoplay_fetching_next"),
+	)
+	if err != nil {
+		gologging.ErrorF("[skip.go] askip send err: %v", err)
+	}
+
+	next := pickAutoplayCandidate(chatID, last)
+	if next == nil {
+		txt := "⚠️ No autoplay recommendations found to skip to."
+		if statusMsg != nil {
+			utils.EOR(statusMsg, txt)
+		} else {
+			m.Reply(txt)
+		}
+		scheduleOldPlayingMessage(r)
+		core.DeleteRoom(r.ID)
+		return telegram.ErrEndGroup
+	}
+	next.Requester = "🎵 ᴀᴜᴛᴏᴘʟᴀʏ"
+
+	r.SetLoop(0)
+	scheduleOldPlayingMessage(r)
+
+	var path string
+	var dlErr error
+	const maxRetries = 5
+	const downloadTimeout = 60 * time.Second
+	for attempt := 0; attempt < maxRetries; attempt++ {
+		dlCtx, cancel := context.WithTimeout(context.Background(), downloadTimeout)
+		path, dlErr = platforms.Download(dlCtx, next, statusMsg)
+		cancel()
+		if dlErr == nil {
+			break
+		}
+		gologging.WarnF("[Autoplay] /skip download failed (attempt %d/%d) for %q: %v — trying next candidate", attempt+1, maxRetries, next.Title, dlErr)
+		nextT := pickAutoplayCandidate(chatID, next)
+		if nextT == nil {
+			break
+		}
+		nextT.Requester = "🎵 ᴀᴜᴛᴏᴘʟᴀʏ"
+		next = nextT
+	}
+
+	if dlErr != nil {
+		txt := F(chatID, "stream_download_fail", locales.Arg{
+			"error": dlErr.Error(),
+		})
+		if statusMsg != nil {
+			utils.EOR(statusMsg, txt)
+		} else {
+			core.Bot.SendMessage(chatID, txt)
+		}
+		scheduleOldPlayingMessage(r)
+		core.DeleteRoom(r.ID)
+		return telegram.ErrEndGroup
+	}
+
+	if err := r.Play(next, path, true); err != nil {
+		txt := F(chatID, "stream_play_fail")
+		if statusMsg != nil {
+			utils.EOR(statusMsg, txt)
+		} else {
+			core.Bot.SendMessage(chatID, txt)
+		}
+		scheduleOldPlayingMessage(r)
+		core.DeleteRoom(r.ID)
+		return telegram.ErrEndGroup
+	}
+
+	title := utils.ShortTitle(next.Title, 25)
+	safeTitle := utils.EscapeHTML(title)
+	thumbTag := getThumbTag(chatID, next.Artwork)
+
+	msg := F(chatID, "stream_now_playing", locales.Arg{
+		"thumb":    thumbTag,
+		"url":      next.URL,
+		"title":    safeTitle,
+		"duration": utils.FormatDuration(next.Duration),
+		"by":       next.Requester,
+	})
+
+	opt := &telegram.SendOptions{
+		ParseMode:   "HTML",
+		ReplyMarkup: core.GetPlayMarkup(chatID, r, false),
+		LinkPreview: true,
+		InvertMedia: false,
+	}
+
+	var newStatusMsg *telegram.NewMessage
+	if statusMsg != nil {
+		newStatusMsg, _ = utils.EOR(statusMsg, msg, opt)
+	} else {
+		newStatusMsg, _ = core.Bot.SendMessage(chatID, msg, opt)
+	}
+
+	if newStatusMsg != nil {
+		r.SetStatusMsg(newStatusMsg)
+	}
+
+	return telegram.ErrEndGroup
+}
+

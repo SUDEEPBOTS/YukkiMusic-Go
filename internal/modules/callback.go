@@ -258,6 +258,9 @@ func handleSkipAction(cb *tg.CallbackQuery, r *core.RoomState) error {
 	gologging.InfoF("Callback → skip, chatID=%d", chatID)
 
 	if len(r.Queue()) == 0 {
+		if database.IsAutoplayEnabled(chatID) {
+			return handleAutoplaySkipCallback(cb, r)
+		}
 		scheduleOldPlayingMessage(r)
 		core.DeleteRoom(r.ID)
 		if _, err := cb.Edit(F(chatID, "skip_stopped", locales.Arg{
@@ -271,6 +274,20 @@ func handleSkipAction(cb *tg.CallbackQuery, r *core.RoomState) error {
 
 	r.SetLoop(0)
 	t := r.NextTrack()
+	if t == nil {
+		if database.IsAutoplayEnabled(chatID) {
+			return handleAutoplaySkipCallback(cb, r)
+		}
+		scheduleOldPlayingMessage(r)
+		core.DeleteRoom(r.ID)
+		if _, err := cb.Edit(F(chatID, "skip_stopped", locales.Arg{
+			"user": utils.MentionHTML(cb.Sender),
+		})); err != nil {
+			gologging.ErrorF("Edit error: %v", err)
+		}
+		cb.Answer(F(chatID, "cb_skip_queue_empty"), opt)
+		return tg.ErrEndGroup
+	}
 
 	statusMsg, err := cb.Respond(F(chatID, "stream_downloading_next"))
 	if err != nil {
@@ -329,6 +346,104 @@ func handleSkipAction(cb *tg.CallbackQuery, r *core.RoomState) error {
 	statusMsg.Reply(F(chatID, "cb_skip_edited", locales.Arg{
 		"user": utils.MentionHTML(cb.Sender),
 	}))
+	return tg.ErrEndGroup
+}
+
+func handleAutoplaySkipCallback(cb *tg.CallbackQuery, r *core.RoomState) error {
+	opt := &tg.CallbackOptions{Alert: true}
+	chatID := cb.ChannelID()
+	last := r.Track()
+	if last == nil {
+		cb.Answer(F(chatID, "room_no_active"), opt)
+		return tg.ErrEndGroup
+	}
+
+	statusMsg, err := cb.Respond(F(chatID, "autoplay_fetching_next"))
+	if err != nil {
+		gologging.ErrorF("Failed to send status message: %v", err)
+	}
+
+	next := pickAutoplayCandidate(chatID, last)
+	if next == nil {
+		cb.Answer("⚠️ No autoplay recommendations found.", opt)
+		scheduleOldPlayingMessage(r)
+		core.DeleteRoom(r.ID)
+		if _, err := cb.Edit(F(chatID, "skip_stopped", locales.Arg{
+			"user": utils.MentionHTML(cb.Sender),
+		})); err != nil {
+			gologging.ErrorF("Edit error: %v", err)
+		}
+		return tg.ErrEndGroup
+	}
+	next.Requester = "🎵 ᴀᴜᴛᴏᴘʟᴀʏ"
+
+	r.SetLoop(0)
+	scheduleOldPlayingMessage(r)
+
+	var path string
+	var dlErr error
+	const maxRetries = 5
+	const downloadTimeout = 60 * time.Second
+	for attempt := 0; attempt < maxRetries; attempt++ {
+		dlCtx, cancel := context.WithTimeout(context.Background(), downloadTimeout)
+		path, dlErr = platforms.Download(dlCtx, next, statusMsg)
+		cancel()
+		if dlErr == nil {
+			break
+		}
+		gologging.WarnF("[Autoplay] callback skip download failed (attempt %d/%d) for %q: %v — trying next candidate", attempt+1, maxRetries, next.Title, dlErr)
+		nextT := pickAutoplayCandidate(chatID, next)
+		if nextT == nil {
+			break
+		}
+		nextT.Requester = "🎵 ᴀᴜᴛᴏᴘʟᴀʏ"
+		next = nextT
+	}
+
+	if dlErr != nil {
+		gologging.ErrorF("Download failed for %s: %v", next.URL, dlErr)
+		utils.EOR(statusMsg, F(chatID, "stream_download_fail", locales.Arg{
+			"error": dlErr.Error(),
+		}))
+		cb.Answer(F(chatID, "cb_skip_download_failed"), opt)
+		scheduleOldPlayingMessage(r)
+		core.DeleteRoom(r.ID)
+		return tg.ErrEndGroup
+	}
+
+	if err := r.Play(next, path); err != nil {
+		gologging.ErrorF("Play error: %v", err)
+		utils.EOR(statusMsg, F(chatID, "stream_play_fail"))
+		cb.Answer(F(chatID, "cb_skip_play_failed"), opt)
+		scheduleOldPlayingMessage(r)
+		core.DeleteRoom(r.ID)
+		return tg.ErrEndGroup
+	}
+
+	cb.Answer(F(chatID, "cb_skip_success"), opt)
+	cb.Delete()
+
+	thumbTag := getThumbTag(chatID, next.Artwork)
+	msgText := F(chatID, "stream_now_playing", locales.Arg{
+		"thumb":    thumbTag,
+		"url":      next.URL,
+		"title":    utils.EscapeHTML(utils.ShortTitle(next.Title, 25)),
+		"duration": utils.FormatDuration(next.Duration),
+		"by":       next.Requester,
+	})
+
+	sendOpt := &tg.SendOptions{
+		ParseMode:   "HTML",
+		ReplyMarkup: core.GetPlayMarkup(chatID, r, false),
+		LinkPreview: true,
+		InvertMedia: false,
+	}
+
+	statusMsg, _ = utils.EOR(statusMsg, msgText, sendOpt)
+	if statusMsg != nil {
+		r.SetStatusMsg(statusMsg)
+	}
+
 	return tg.ErrEndGroup
 }
 

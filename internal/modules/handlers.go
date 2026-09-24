@@ -247,6 +247,16 @@ var handlers = []MsgHandlerDef{
 		Filters: []telegram.Filter{superGroupFilter, authFilter},
 	},
 	{
+		Pattern: "askip",
+		Handler: askipHandler,
+		Filters: []telegram.Filter{superGroupFilter, authFilter},
+	},
+	{
+		Pattern: "caskip",
+		Handler: caskipHandler,
+		Filters: []telegram.Filter{superGroupFilter, authFilter},
+	},
+	{
 		Pattern: "pause",
 		Handler: pauseHandler,
 		Filters: []telegram.Filter{superGroupFilter, authFilter},
